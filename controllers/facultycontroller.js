@@ -7,10 +7,10 @@ const createFaculty = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const faculty = new Faculty({ name, email, department, designation, password: hashedPassword });
     await faculty.save();
-    res.status(201).json({ message: 'Faculty member created successfully', faculty });
+    res.status(201).json({ message: 'Faculty created successfully', faculty });
   } catch (error) {
-    console.error('Error creating faculty member:', error);
-    res.status(500).json({ error: 'Failed to create faculty member' });
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create faculty' });
   }
 };
 
@@ -19,7 +19,7 @@ const authenticateFaculty = async (req, res) => {
     const { email, password } = req.body;
     const faculty = await Faculty.findOne({ email });
     if (!faculty) {
-      return res.status(404).json({ error: 'Faculty member not found' });
+      return res.status(404).json({ error: 'Faculty not found' });
     }
     const isPasswordValid = await bcrypt.compare(password, faculty.password);
     if (!isPasswordValid) {
@@ -27,8 +27,8 @@ const authenticateFaculty = async (req, res) => {
     }
     res.json({ message: 'Authentication successful' });
   } catch (error) {
-    console.error('Error authenticating faculty member:', error);
-    res.status(500).json({ error: 'Failed to authenticate faculty member' });
+    console.error(error);
+    res.status(500).json({ error: 'Failed to authenticate faculty' });
   }
 };
 

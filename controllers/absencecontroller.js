@@ -1,6 +1,5 @@
 const Absence = require('../models/absence');
-const smsService = require('sms-service');
-// const twilio = require('twilio');
+const twilio = require('twilio');
 const Student = require('../models/students')
 
 const createAbsence = async (req, res) => {
@@ -72,47 +71,32 @@ const deleteAbsenceById = async (req, res) => {
   }
 };
 const sendSMS = async (req, res) => {
-  console.log("came")
-    try {
-      const { rollNos, session } = req.body;
-      const students = await Student.find({ rollNo: { $in: rollNumbers } });
-      
-      for (const student of students) {
-        const message = `Your child ${student.name} is absent ${session === 'forenoon' ? 'for the forenoon class' : 'for the afternoon class'}.`;
-        smsService.sendSMS(student.parentMobile, message);
-      }
-  
-      res.json({ message: 'SMS notifications sent successfully' });
-    } catch (error) {
-      console.error('Error sending SMS notifications:', error);
-      res.status(500).json({ error: 'Failed to send SMS notifications' });
-    }
-  };
-
-// const sendSMS = async (req, res) => {
-//   try {
-//     const { rollNumbers, session } = req.body;
-//     const accountSid = '';
-//     const authToken = '';
-//     const client = twilio(accountSid, authToken);
-//     const students = await Student.find({ rollNo: { $in: rollNumbers } });
+  try {
+    const { rollNos, session } = req.body;
+    const student = await Student.findOne({ rollNo: rollNos });
     
-//     for (const student of students) {
-//       const message = `Your child ${student.name} is absent ${session === 'forenoon' ? 'in the forenoon' : 'in the afternoon'}.`;
-//       await client.messages.create({
-//         body: message,
-//         from: '9952315199',
-//         to: student.parentMobile,
-//       });
-//     }
-
-//     res.json({ message: 'SMS notifications sent successfully' });
-//   } catch (error) {
-//     console.error('Error sending SMS notifications:', error);
-//     res.status(500).json({ error: 'Failed to send SMS notifications' });
-//   }
-// };
-
+    if (student) {
+      const accountSid = '#';
+      const authToken = '#';
+      const client = twilio(accountSid, authToken);
+      
+      const message = `Your child ${student.name} is absent ${session === 'forenoon' ? 'for the forenoon class' : 'for the afternoon class'}.`;
+      console.log(message)
+      await client.messages.create({
+        body: message,
+        from: "#",
+        to: student.parentMobile,
+      });
+      
+      res.json({ message: 'SMS notification sent successfully' });
+    } else {
+      res.json({ message: 'Student not found' });
+    }
+  } catch (error) {
+    console.error('Error sending SMS notification:', error);
+    res.json({ error: 'Failed to send SMS notification' });
+  }
+};
 
 module.exports = {
   createAbsence,

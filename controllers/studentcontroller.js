@@ -17,7 +17,7 @@ const getAllStudents = async (req, res) => {
     const students = await Student.find();
     res.json(students);
   } catch (error) {
-    console.error('Error getting students:', error);
+    console.error(error);
     res.status(500).json({ error: 'Failed to get students' });
   }
 };
