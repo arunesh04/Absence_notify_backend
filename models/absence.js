@@ -1,17 +1,15 @@
 const mongoose = require('mongoose');
 
 const absenceSchema = new mongoose.Schema({
-  rollNo: {
-    type: [String],
-    required: true
+  rollNos: {
+    type: String,
+    required: true,
   },
   session: {
     type: String,
     enum: ['forenoon', 'afternoon'],
-    required: true
-  }
+    required: true,
+  },
 });
 
-const Absence = mongoose.model('Absence', absenceSchema);
-
-module.exports = Absence;
+module.exports = mongoose.model('Absence', absenceSchema);

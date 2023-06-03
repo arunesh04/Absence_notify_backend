@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const facultyController = require('../backend/controllers/facultycontroller');
-const studentController = require('../backend/controllers/studentcontroller');
-const absenceController = require('../backend/controllers/absencecontroller');
+const facultyController = require('../Absence_notify_backend/controllers/facultycontroller');
+const studentController = require('../Absence_notify_backend/controllers/studentcontroller');
+const absenceController = require('../Absence_notify_backend/controllers/absencecontroller');
 
 router.post('/faculty', facultyController.createFaculty);
 router.get('/faculty', facultyController.getAllFaculty);

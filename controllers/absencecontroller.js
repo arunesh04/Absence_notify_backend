@@ -74,7 +74,7 @@ const deleteAbsenceById = async (req, res) => {
 const sendSMS = async (req, res) => {
   console.log("came")
     try {
-      const { rollNumbers, session } = req.body;
+      const { rollNos, session } = req.body;
       const students = await Student.find({ rollNo: { $in: rollNumbers } });
       
       for (const student of students) {
