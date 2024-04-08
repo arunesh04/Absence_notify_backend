@@ -1,4 +1,6 @@
-# Node.js Backend Application
+# Absence Notify Backend Application
+
+Server code for Absence Notify Application which connects to the No SQL database and perform the crud operations.
 
 ![Node.js Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/220px-Node.js_logo.svg.png)
 
