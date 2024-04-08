@@ -18,12 +18,12 @@ To install and run this application locally, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository_url>
+   git clone (https://github.com/arunesh04/Absence_notify_backend.git)
    ```
 
 2. **Navigate to the project directory:**
    ```bash
-   cd <project_directory>
+   cd Absence_notify_backend
    ```
 
 3. **Install dependencies:**
@@ -31,12 +31,9 @@ To install and run this application locally, follow these steps:
    npm install
    ```
 
-4. **Set up environment variables:**
-   Create a `.env` file in the root directory and define the required environment variables. You can refer to the `.env.example` file for a list of variables that need to be set.
-
-5. **Run the application:**
+4. **Run the server:**
    ```bash
-   npm start
+   node server.js
    ```
 
 ## Usage
